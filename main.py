@@ -129,7 +129,6 @@ def filter_txids_gen(tx_list, prefix="tx"):
     Default prefix is 'tx'.
     Input: List of strings, prefix string
     """
-    # return [txid for txid in tx_list if txid.startswith(prefix)]
     for txid in tx_list:
         if txid.startswith(prefix):
             yield txid
