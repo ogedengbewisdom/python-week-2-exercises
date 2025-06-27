@@ -4,6 +4,7 @@ def get_tx_count(tx_list):
     Input: List of transaction IDs (strings)
     Output: Integer count
     """
+    return len(tx_list)
 
 def filter_large_txids(tx_list, min_length):
     """
@@ -11,6 +12,7 @@ def filter_large_txids(tx_list, min_length):
     Input: List of txids (strings), minimum length (int)
     Output: Filtered list of strings
     """
+    return [tx_id for tx_id in tx_list if len(tx_id) >= min_length]
 
 def process_txids(tx_list):
     """
@@ -19,6 +21,7 @@ def process_txids(tx_list):
     Input: List of txids (strings)
     Output: List of (int, string) tuples
     """
+    return [(index, tx_id) for index, tx_id in enumerate(tx_list) if tx_id[0:2] == "tx"]
 
 def example_while_loop(limit):
     """
@@ -27,6 +30,14 @@ def example_while_loop(limit):
     Input: Integer limit
     Output: List of integers
     """
+    result = []
+    i = 0
+    while i < limit:
+        result.append(i)
+        i += 1
+        if i == 5:
+            break
+    return result
 
 def unpack_tuple(block_header):
     """
@@ -34,6 +45,8 @@ def unpack_tuple(block_header):
     Input: Tuple (int, str, int)
     Output: Unpacked tuple values
     """
+    block_height, previous_hash, timestamp = block_header
+    return block_height, previous_hash, timestamp
 
 def dict_methods_example(block):
     """
@@ -42,6 +55,10 @@ def dict_methods_example(block):
     Input: Dict
     Output: Tuple of (list, list, list)
     """
+    keys = list(block.keys())
+    values = list(block.values())
+    items = list(block.items())
+    return (keys, values, items)
 
 def multiple_assignment(a, b):
     """
@@ -49,6 +66,9 @@ def multiple_assignment(a, b):
     Input: two integers
     Output: Tuple of two ints (swapped)
     """
+    first, second = a, b
+    first, second = second, first
+    return first, second
 
 def set_example(addresses):
     """
@@ -57,6 +77,7 @@ def set_example(addresses):
     Input: List of strings
     Output: Set of strings
     """
+    return set(addresses)
 
 
 class BitcoinTransaction:
@@ -64,28 +85,34 @@ class BitcoinTransaction:
         """
         TODO: Initialize transaction with txid (string) and amount (float).
         """
+        self.txid = txid
+        self.amount = amount
 
     def __str__(self):
         """
         TODO: Return string representation: "Tx {txid} of {amount} BTC"
         """
+        return f"Tx {self.txid} of {self.amount} BTC"
 
 class Wallet:
     def __init__(self):
         """
         TODO: Initialize an empty list to hold transactions.
         """
+        self.transactions = []
 
     def add_tx(self, tx):
         """
         TODO: Add a BitcoinTransaction to the wallet's transaction list.
         """
+        self.transactions.append(tx)
 
     def total_balance(self):
         """
         TODO: Calculate and return the sum of amounts of all transactions.
         Output: Float
         """
+        return sum(tx.amount for tx in self.transactions)
 
 
 def txid_generator(tx_list):
@@ -93,6 +120,8 @@ def txid_generator(tx_list):
     TODO: Yield each txid from the list one by one.
     Input: List of strings
     """
+    for txid in tx_list:
+        yield txid
 
 def filter_txids_gen(tx_list, prefix="tx"):
     """
@@ -100,3 +129,7 @@ def filter_txids_gen(tx_list, prefix="tx"):
     Default prefix is 'tx'.
     Input: List of strings, prefix string
     """
+    # return [txid for txid in tx_list if txid.startswith(prefix)]
+    for txid in tx_list:
+        if txid.startswith(prefix):
+            yield txid
